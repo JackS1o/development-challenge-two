@@ -15,9 +15,18 @@ router.post('/patient',
   bodyVerify.veryfyAddress,
   bodyVerify.verifyDate, 
   controller.createPatient);
+
 router.get('/patient', controller.getPatients);
+
 router.get('/patient/:id', controller.getPatientById);
-router.put('/patient/:id', controller.updatePatient);
-router.delete('/patient/:id', controller.deletePatient);
+
+router.put('/patient/:id',
+  bodyVerify.verify,
+  bodyVerify.emailVerify,
+  bodyVerify.veryfyAddress,
+  bodyVerify.verifyDate,
+  controller.updatePatient);
+
+router.delete('/patient/:id',controller.deletePatient);
 
 export { router };
