@@ -26,4 +26,13 @@ export default class BodyVerify {
     }
     next();
   }
+
+  verifyDate = async (req: Request, res: Response, next: NextFunction) => {
+    const { birth_date } = req.body;
+    const validDate = /^\d{2}-\d{2}-\d{4}$/;
+    if (!validDate.test(birth_date)) {
+      return res.status(400).json({ message: "Date must be in DD-MM-YY format" });
+    }
+    next();
+  }
 }
