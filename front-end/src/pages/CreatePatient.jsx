@@ -3,8 +3,10 @@ import { createNewPatient } from "../apis/api";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -41,14 +43,15 @@ export default function CreatePatient() {
     );
     setLoading(false);
 
-    if (result.message || result.error) return setOpen(true), setMessage(result);
+    if (result.message || result.error)
+      return setOpen(true), setMessage(result);
 
     setOpenSuccess(true);
     console.log(result);
   };
 
   const handleClose = (_event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -56,15 +59,15 @@ export default function CreatePatient() {
   };
 
   return (
-    <div className="container">
-      <h1>Create Patient</h1>
+    <Container maxWidth="sm">
+      <CssBaseline />
       <Box
         component="form"
         sx={{
           "& > :not(style)": { m: 1, width: "25ch" },
         }}
-        noValidate
-        autoComplete="off"
+        Validate
+        autoComplete="on"
       >
         <TextField
           id="standard-basic"
@@ -119,15 +122,19 @@ export default function CreatePatient() {
         </Button>
       )}
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
           {message.message}
         </Alert>
       </Snackbar>
-      <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+      <Snackbar
+        open={openSuccess}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           Patient Registred!
         </Alert>
       </Snackbar>
-    </div>
+    </Container>
   );
 }
