@@ -5,7 +5,14 @@ export default class userService {
   
   createPatient = async (body: IPatient) => {
     const { patient_name, birth_date, email, patient_address } = body;
-    
+    const patient = await client.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (patient) return { message: "Email already exists" };
+
     const user = await client.user.create({
       data: {
         patient_name,
