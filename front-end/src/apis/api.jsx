@@ -6,8 +6,10 @@ const getAllPatients = async () => {
 };
 
 const getPatientsById = async (id) => {
-  const url = `http://localhost:3001/patient${id}`;
-  const result = await fetch(url);
+  const url = `http://localhost:3001/patient/${id}`;
+  const result = await fetch(url, {
+    method: "GET",
+  });
   const data = await result.json();
   return data;
 };

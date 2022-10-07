@@ -27,7 +27,7 @@ export default class userService {
 
   getPatients = async () => {
     const users = await client.user.findMany();
-
+    
     return users;
   }
 
@@ -38,6 +38,8 @@ export default class userService {
       },
     });
 
+    if (!user) return { message: "User does not exist" };
+    
     return user;
   }
 

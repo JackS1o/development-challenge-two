@@ -43,7 +43,7 @@ export default function CreatePatient() {
     );
     setLoading(false);
 
-    if (result.message || result.error)
+    if (result.message)
       return setOpen(true) || setMessage(result);
 
     setOpenSuccess(true);
