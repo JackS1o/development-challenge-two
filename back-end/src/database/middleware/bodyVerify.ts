@@ -35,4 +35,12 @@ export default class BodyVerify {
     }
     next();
   }
+
+  updateVerify = async (req: Request, res: Response, next: NextFunction) => {
+    const { patient_name, email, birth_date, patient_address } = req.body;
+    if (!patient_name && !email && !birth_date && !patient_address) {
+      return res.status(400).json({ message: "Invalid fields" });
+    }
+    next();
+  }
 }

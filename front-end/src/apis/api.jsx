@@ -33,15 +33,23 @@ const createNewPatient = async (patient_name, birth_date, email, patient_address
   return data;
 };
 
-const updatePatient = async (id, update) => {
-  const url = `http://localhost:3001/patient${id}`;
+const updatePatient = async (update) => {
+  const { patient_id, patient_name, birth_date, email, patient_address } = update;
+  const url = `http://localhost:3001/patient/${patient_id}`;
   const result = await fetch(url, {
     method: "PUT",
-    body: {
-      update,
+    headers: {
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      patient_name,
+      birth_date,
+      email,
+      patient_address,
+    }),
   });
-  return result;
+  const data = await result.json();
+  return data;
 };
 
 const deletePatient = async (id) => {

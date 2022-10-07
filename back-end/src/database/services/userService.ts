@@ -45,7 +45,18 @@ export default class userService {
   }
 
   updatePatient = async (id: number, body: IPatient) => {
-    const { patient_name } = body;
+    const { patient_name, birth_date, email, patient_address } = body;
+
+    const veryfiedUser = await this.getPatientById(id);
+    if (!veryfiedUser) return false;
+
+    const verifyEmail = await client.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (verifyEmail) return { message: "Email already exists" };
     
     const user = await client.user.update({
       where: {
@@ -53,6 +64,9 @@ export default class userService {
       },
       data: {
         patient_name,
+        birth_date,
+        email,
+        patient_address,
       },
     });
 

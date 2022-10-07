@@ -33,6 +33,7 @@ export default class UserController {
     const { body } = req;
 
     const user = await this.service.updatePatient(Number(id), body);
+    if (!user) return res.status(400).json({ message: "User does not exist" });
 
     return res.status(200).json(user);
   }
