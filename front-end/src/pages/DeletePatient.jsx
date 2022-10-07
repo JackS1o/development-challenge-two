@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { getPatientsById } from "../apis/api";
+import "../index.css";
+import { deletePatient } from "../apis/api";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function GetById() {
+
+export default function DeletePatient() {
   const [patientId, setPatientId] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [patientById, setPatientById] = useState([]);
+  const [openSuccess, setOpenSuccess] = useState(false);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -27,12 +30,13 @@ export default function GetById() {
 
   const postSubmit = async () => {
     setLoading(true);
-    const result = await getPatientsById(patientId);
+    const result = await deletePatient(patientId);
     setLoading(false);
 
     if (result.message) return setOpen(true) || setMessage(result);
 
     setPatientById([result]);
+    setOpenSuccess(true);
   };
 
   const handleClose = (_event, reason) => {
@@ -40,6 +44,7 @@ export default function GetById() {
       return;
     }
     setOpen(false);
+    setOpenSuccess(false);
   };
 
   const homePage = () => {
@@ -74,7 +79,7 @@ export default function GetById() {
             Validate
             autoComplete="off"
           >
-            <h1>Get Patient By Id</h1>
+            <h1>Delete Patient By Id</h1>
             <TextField
               id="standard-basic"
               label="Patient Id"
@@ -139,6 +144,15 @@ export default function GetById() {
             {message.message}
           </Alert>
         </Snackbar>
+        <Snackbar
+        open={openSuccess}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Patient Deleted!
+        </Alert>
+      </Snackbar>
       </Container>
     </React.Fragment>
   );

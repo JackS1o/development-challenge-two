@@ -43,8 +43,7 @@ export default function CreatePatient() {
     );
     setLoading(false);
 
-    if (result.message)
-      return setOpen(true) || setMessage(result);
+    if (result.message) return setOpen(true) || setMessage(result);
 
     setOpenSuccess(true);
   };
@@ -57,12 +56,16 @@ export default function CreatePatient() {
     setOpenSuccess(false);
   };
 
+  const homePage = () => {
+    window.location.href = "/";
+  };
+
   return (
     <Container maxWidth="sm">
       <CssBaseline
         sx={{ display: "flex", justifyContent: "center", height: "100px" }}
       />
-      <Box sx={{ paddingTop: "3em", height: '100vh'}}>
+      <Box sx={{ paddingTop: "3em", height: "100vh" }}>
         <Box
           component="form"
           sx={{
@@ -130,6 +133,9 @@ export default function CreatePatient() {
               Submit
             </Button>
           )}
+          <Button variant="contained" color="error" onClick={homePage}>
+            Home Page
+          </Button>
         </Box>
       </Box>
 

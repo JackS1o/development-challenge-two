@@ -11,7 +11,6 @@ const boxStyle = {
   alignItems: "center",
   borderRadius: "16px",
   border: "1px solid black",
-  padding: "20px",
   width: "400px",
   color: "#000000",
   height: "100px",

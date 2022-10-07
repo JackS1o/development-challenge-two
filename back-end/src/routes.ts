@@ -20,6 +20,8 @@ router.get('/patient', controller.getPatients);
 
 router.get('/patient/:id', controller.getPatientById);
 
+router.delete('/patient/:id',controller.deletePatient);
+
 router.put('/patient/:id',
   bodyVerify.verify,
   bodyVerify.emailVerify,
@@ -27,6 +29,5 @@ router.put('/patient/:id',
   bodyVerify.verifyDate,
   controller.updatePatient);
 
-router.delete('/patient/:id',controller.deletePatient);
 
 export { router };

@@ -23,6 +23,8 @@ export default class UserController {
 
     const user = await this.service.getPatientById(Number(id));
 
+    if (!user) return res.status(400).json({ message: "User does not exist" });
+
     return res.status(200).json(user);
   }
 
@@ -39,6 +41,8 @@ export default class UserController {
     const { id } = req.params;
 
     const user = await this.service.deletePatient(Number(id));
+
+    if (!user) return res.status(400).json({ message: "User does not exist" });
 
     return res.status(200).json(user);
   }

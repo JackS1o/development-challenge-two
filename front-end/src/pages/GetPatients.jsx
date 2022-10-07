@@ -30,6 +30,10 @@ export default function GetPatients() {
     setPatients(patient);
   };
 
+  const homePage = () => {
+    window.location.href = "/";
+  };
+
   return (
     <>
       <CssBaseline />
@@ -58,13 +62,28 @@ export default function GetPatients() {
                 Get Patients
               </Button>
             )}
+            <Button variant="contained" color="error" onClick={homePage}>
+              Home Page
+            </Button>
           </Stack>
           {patients.map((patient, index) => (
             <Box sx={{ ...mapStyle }}>
-              <p key={index}><strong>Name: </strong>{patient.patient_name}</p>
-              <p key={index}><strong>Birth Date: </strong>{patient.birth_date}</p>
-              <p key={index}><strong>Email: </strong>{patient.email}</p>
-              <p key={index}><strong>Address: </strong>{patient.patient_address}</p>
+              <p key={index}>
+                <strong>Name: </strong>
+                {patient.patient_name}
+              </p>
+              <p key={index}>
+                <strong>Birth Date: </strong>
+                {patient.birth_date}
+              </p>
+              <p key={index}>
+                <strong>Email: </strong>
+                {patient.email}
+              </p>
+              <p key={index}>
+                <strong>Address: </strong>
+                {patient.patient_address}
+              </p>
             </Box>
           ))}
         </Box>

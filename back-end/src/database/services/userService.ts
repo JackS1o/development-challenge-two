@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import client from "../client";
 import IPatient from "../interfaces/patientInterface";
 
@@ -31,16 +32,16 @@ export default class userService {
     return users;
   }
 
-  getPatientById = async (id: number) => {
+  getPatientById = async (id: number): Promise<User | boolean> => {
     const user = await client.user.findUnique({
       where: {
         id,
       },
     });
 
-    if (!user) return { message: "User does not exist" };
+    if (!user) return false;
     
-    return user;
+    return user as User;
   }
 
   updatePatient = async (id: number, body: IPatient) => {
@@ -58,7 +59,11 @@ export default class userService {
     return user;
   }
 
-  deletePatient = async (id: number) => {
+  deletePatient = async (id: number): Promise<User | boolean> => {
+    const veryfiedUser = await this.getPatientById(id);
+
+    if (!veryfiedUser) return false;
+
     const user = await client.user.delete({
       where: {
         id,

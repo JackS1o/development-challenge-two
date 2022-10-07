@@ -45,7 +45,7 @@ const updatePatient = async (id, update) => {
 };
 
 const deletePatient = async (id) => {
-  const url = `http://localhost:3001/patient${id}`;
+  const url = `http://localhost:3001/patient/${id}`;
   const result = await fetch(url, {
     method: "DELETE",
   });
