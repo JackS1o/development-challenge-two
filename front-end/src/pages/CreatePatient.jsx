@@ -44,10 +44,9 @@ export default function CreatePatient() {
     setLoading(false);
 
     if (result.message || result.error)
-      return setOpen(true), setMessage(result);
+      return setOpen(true) || setMessage(result);
 
     setOpenSuccess(true);
-    console.log(result);
   };
 
   const handleClose = (_event, reason) => {
@@ -60,67 +59,80 @@ export default function CreatePatient() {
 
   return (
     <Container maxWidth="sm">
-      <CssBaseline />
-      <Box
-        component="form"
-        sx={{
-          "& > :not(style)": { m: 1, width: "25ch" },
-        }}
-        Validate
-        autoComplete="on"
-      >
-        <TextField
-          id="standard-basic"
-          label="Patient Name"
-          variant="standard"
-          type="text"
-          placeholder="Enter Patient Name"
-          name="patient_name"
-          value={patient.patient_name}
-          onChange={handleChange}
-        />
+      <CssBaseline
+        sx={{ display: "flex", justifyContent: "center", height: "100px" }}
+      />
+      <Box sx={{ paddingTop: "3em", height: '100vh'}}>
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap",
+            width: "500px",
+            height: "80vh",
+            bgcolor: "rgba(173, 230, 238, 0.788)",
+            borderRadius: "16px",
+            paddingTop: "20px",
+          }}
+          Validate
+          autoComplete="off"
+        >
+          <TextField
+            id="standard-basic"
+            label="Patient Name"
+            variant="standard"
+            type="text"
+            placeholder="Enter Patient Name"
+            name="patient_name"
+            value={patient.patient_name}
+            onChange={handleChange}
+          />
 
-        <TextField
-          label="Birth Date"
-          variant="standard"
-          type="text"
-          id="birth_date"
-          placeholder="Enter Birth Date"
-          name="birth_date"
-          value={patient.birth_date}
-          onChange={handleChange}
-        />
+          <TextField
+            label="Birth Date"
+            variant="standard"
+            type="text"
+            id="birth_date"
+            placeholder="Enter Birth Date"
+            name="birth_date"
+            value={patient.birth_date}
+            onChange={handleChange}
+          />
 
-        <TextField
-          label="Email"
-          variant="standard"
-          type="text"
-          id="email"
-          placeholder="Enter Email"
-          name="email"
-          value={patient.email}
-          onChange={handleChange}
-        />
+          <TextField
+            label="Email"
+            variant="standard"
+            type="text"
+            id="email"
+            placeholder="Enter Email"
+            name="email"
+            value={patient.email}
+            onChange={handleChange}
+          />
 
-        <TextField
-          label="Patient Address"
-          variant="standard"
-          type="text"
-          id="patient_address"
-          placeholder="Enter Patient Address"
-          name="patient_address"
-          value={patient.patient_address}
-          onChange={handleChange}
-        />
+          <TextField
+            label="Patient Address"
+            variant="standard"
+            type="text"
+            id="patient_address"
+            placeholder="Enter Patient Address"
+            name="patient_address"
+            value={patient.patient_address}
+            onChange={handleChange}
+          />
+          {loading ? (
+            <Button variant="contained">Loading</Button>
+          ) : (
+            <Button variant="contained" onClick={postSubmit}>
+              Submit
+            </Button>
+          )}
+        </Box>
       </Box>
 
-      {loading ? (
-        <Button variant="contained">Loading</Button>
-      ) : (
-        <Button variant="contained" onClick={postSubmit}>
-          Submit
-        </Button>
-      )}
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
           {message.message}
